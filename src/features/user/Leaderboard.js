@@ -1,22 +1,40 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsersAsync } from "./authSlice";
+import { useSelector } from "react-redux";
 
 import styles from "./Leaderboard.module.scss";
 
 export default function LeaderboardTable() {
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getUsersAsync());
-    }, []);
-
     const allusers = useSelector((state) => state.auth.allusers);
+    const allQuestions = useSelector((state) => state.dashboard.questions);
 
-    if (!allusers) {
+    if (!allusers || !allQuestions) {
         return null;
     }
-    const arr = Object.values(allusers).sort((a, b) => {
+
+    const tempUser = {};
+
+    Object.keys(allusers).forEach((key) => {
+        tempUser[key] = {
+            ...allusers[key],
+            answers: [],
+            questions: [],
+        };
+    });
+
+    Object.keys(allQuestions).forEach((key) => {
+        const q = allQuestions[key];
+        const { id, author, optionOne, optionTwo } = q;
+
+        tempUser[author].questions.push(id);
+
+        optionOne.votes.forEach((vote) => {
+            tempUser[vote].answers.push(id);
+        });
+        optionTwo.votes.forEach((vote) => {
+            tempUser[vote].answers.push(id);
+        });
+    });
+
+    const arr = Object.values(tempUser).sort((a, b) => {
         const aScore = Object.keys(a.answers).length + a.questions.length;
         const bScore = Object.keys(b.answers).length + a.questions.length;
         return bScore - aScore;
