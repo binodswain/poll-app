@@ -1,7 +1,6 @@
 import React from "react";
-import { Routes, Route, NavLink, Link, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Homepage from "./homepage/homepage";
-import Dashboard from "./dashboard/dashboard";
 import QuestionDetails from "./questions/questions";
 import Leaderboard from "./leaderboard/leaderboard";
 import AddQuestion from "./add/add";
@@ -27,15 +26,7 @@ export default function App() {
                     }
                 />
                 <Route
-                    path="/dashboard"
-                    element={
-                        <ProtectedLayout>
-                            <Dashboard />
-                        </ProtectedLayout>
-                    }
-                />
-                <Route
-                    path="/question/:id"
+                    path="/questions/:id"
                     element={
                         <ProtectedLayout>
                             <QuestionDetails />

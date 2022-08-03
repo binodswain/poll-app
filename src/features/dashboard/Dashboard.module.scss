@@ -1,8 +1,14 @@
+@use '../../assets/styles/mixins' as *;
+
 .q_wrapper {
     display:grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 1rem;
     margin: 2rem 0;
+
+    @include viewport(medium) {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
     .q_item {
         display: flex;
@@ -11,7 +17,8 @@
         align-items: center;
         padding: 1rem;
         border-radius: 6px;
-        border: 1px solid #ccc;
+        background-color: var(--surface-color);
+        // border: 1px solid #ccc;
         // background-color: #fff;
 
         a {
@@ -39,4 +46,41 @@
 
 .section {
     margin-top: 2rem;
+}
+
+.button_grp {
+
+    button {
+        padding: 10px 20px;
+        margin: 0;
+        cursor: pointer;
+        font-size: 20px;
+        background-color: #260a52;
+        color: var(--text-color);
+        border: none;
+        margin-right: 2px;
+        // border-right: 1px solid;
+        
+        &:first-child {
+            border-bottom-left-radius: 6px;
+            border-top-left-radius: 6px;
+        }
+        
+        &:last-child {
+            border-bottom-right-radius: 6px;
+            border-top-right-radius: 6px;
+            border-right: none;
+        }
+        
+        &:hover {
+            outline: 2px solid;
+            background-color: #260a52
+        }
+        
+        &.selected {
+            background-color: var(--primary-color);
+            // outline: 2px solid;
+        }
+    }
+
 }

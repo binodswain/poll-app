@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { getUsersAsync } from "../user/authSlice";
 import { getQuestionsAsync, saveQuestionAnswerAsync } from "./dashboardSlice";
 
 import styles from "./PollDetails.module.scss";
@@ -41,10 +42,8 @@ export function PollDetails() {
     const { alreadyAnswered, op1, op2, op1Percent, op2Percent } =
         getAlreadyAnswered(question, loggedInUser);
 
-    console.log(`alreadyAnswered: ${alreadyAnswered}`);
 
     const handleClick = (option) => {
-        console.log(option);
         dispatch(
             saveQuestionAnswerAsync({
                 qid: id,
@@ -55,6 +54,7 @@ export function PollDetails() {
 
     return (
         <div>
+            <UserDetails author={author} timestamp={timestamp} />
             <h3 className={styles.helpertext}>Would you rather</h3>
             <div className={styles.option_wrapper}>
                 <button
@@ -83,5 +83,41 @@ export function PollDetails() {
                 </button>
             </div>
         </div>
+    );
+}
+
+function UserDetails({ author, timestamp }) {
+    const dispatch = useDispatch();
+    const { allusers } = useSelector((state) => state.auth);
+
+    useEffect(() => {
+        if (!allusers) {
+            dispatch(getUsersAsync());
+        }
+    }, [allusers]);
+
+    if (!allusers) {
+        return "loading...";
+    }
+
+    const user = allusers[author];
+    const date = new Date(timestamp);
+
+    return (
+        <section className={styles.poll_user_wrapper}>
+            <img src={user.avatarURL} alt={user.name} />
+            <div className={styles.user_details}>
+                <h3>Poll by: {user.name}</h3>
+                <p>
+                    Created on :{" "}
+                    {date.toLocaleDateString("en-US", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                    })}
+                </p>
+            </div>
+        </section>
     );
 }

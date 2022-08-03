@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { authenticateAsync } from "./authSlice";
-import { useNavigate } from "react-router-dom";
+import { authenticateAsync, clearLoginForm, getUsersAsync } from "./authSlice";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import styles from "./Auth.module.scss";
 
@@ -11,21 +11,40 @@ export function LoginForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { authError: errorMessage, loggedInUser } = useSelector(
-        (state) => state.auth
-    );
+    let [searchParams] = useSearchParams();
+
+    const {
+        authError: errorMessage,
+        loggedInUser,
+        allusers,
+        loading,
+    } = useSelector((state) => state.auth);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(authenticateAsync({ username, password }));
+        dispatch(clearLoginForm());
+        if (username && password) {
+            dispatch(authenticateAsync({ username, password }));
+        }
     };
+
+    useEffect(() => {
+        if (!allusers) {
+            dispatch(getUsersAsync());
+        }
+    }, [dispatch, allusers]);
 
     useEffect(() => {
         if (loggedInUser) {
             // redirect to dashboard
-            return navigate("/");
+            dispatch(clearLoginForm());
+            return navigate(searchParams.get("redirect") || "/");
         }
-    }, [loggedInUser]);
+    }, [loggedInUser, navigate, dispatch, searchParams]);
+
+    if (!allusers) {
+        return null;
+    }
 
     return (
         <div>
@@ -39,13 +58,21 @@ export function LoginForm() {
                 )}
                 <label className={styles.label}>
                     username:
-                    <input
-                        className={styles.input}
-                        type="text"
-                        name="username"
+                    <select
                         value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
+                        className={styles.input}
+                        onChange={(e) => {
+                            setUsername(e.target.value);
+                        }}
+                    >
+                        <option value="">Select a user</option>
+                        {allusers &&
+                            Object.keys(allusers).map((user) => (
+                                <option key={user} value={user}>
+                                    {user}
+                                </option>
+                            ))}
+                    </select>
                 </label>
                 <label className={styles.label}>
                     password:
@@ -61,7 +88,8 @@ export function LoginForm() {
                     data-testid="submit-button"
                     className={styles.submit}
                     type="submit"
-                    value="Login"
+                    value={loading ? "Authenticating..." : "Login"}
+                    disabled={loading}
                 />
             </form>
         </div>

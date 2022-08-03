@@ -5,9 +5,8 @@ const initialState = {
     loading: false,
     questions: null,
     newPoll: {
-        optionOne: "",
-        optionTwo: "",
-        created: false,
+        loading: false,
+        created: true,
     },
 };
 
@@ -46,7 +45,11 @@ export const saveQuestionAnswerAsync = createAsyncThunk(
 export const dashboardSlice = createSlice({
     name: "dashboard",
     initialState,
-    reducers: {},
+    reducers: {
+        clearNewPollBanner: (state) => {
+            state.newPoll.created = false;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getQuestionsAsync.pending, (state) => {
@@ -55,11 +58,18 @@ export const dashboardSlice = createSlice({
             .addCase(getQuestionsAsync.fulfilled, (state, action) => {
                 state.loading = false;
                 state.questions = action.payload;
+            })
+            .addCase(saveQuestionAsync.pending, (state) => {
+                state.newPoll.loading = true;
+            })
+            .addCase(saveQuestionAsync.fulfilled, (state) => {
+                state.newPoll.loading = false;
+                state.newPoll.created = true;
             });
     },
 });
 
-export const { logout } = dashboardSlice.actions;
+export const { logout, clearNewPollBanner } = dashboardSlice.actions;
 
 export const selectDashboardData = (state) => state.dashboard;
 

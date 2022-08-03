@@ -1,4 +1,11 @@
-import { Routes, Route, NavLink, Link, Navigate } from "react-router-dom";
+import {
+    Routes,
+    Route,
+    NavLink,
+    Link,
+    Navigate,
+    useNavigate,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./navbar.module.scss";
@@ -7,9 +14,12 @@ import { logout } from "../../features/user/authSlice";
 export default function Navbar() {
     const activeClassName = "active";
     const dispath = useDispatch();
+    const navigate = useNavigate();
+
     const user = useSelector((state) => state.auth.loggedInUser);
     const logoutUser = () => {
         dispath(logout());
+        return navigate("/login");
     };
     return (
         <nav className={styles.nav}>

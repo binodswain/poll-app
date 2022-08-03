@@ -48,3 +48,24 @@
     }
 
 }
+
+.poll_user_wrapper {
+    padding: 0.5rem;
+    border-radius: 6px;
+    // border: 1px solid #ccc;
+    background-color: var(--surface-color);
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    margin-top: 1rem;
+
+    img {
+        width: 100%;
+        height: auto;
+        // border-radius: 50%;
+    }
+
+    .user_details {
+        text-align: left;
+        margin-left: 2rem;
+    }
+}
