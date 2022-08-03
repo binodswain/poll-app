@@ -1,0 +1,50 @@
+@use './assets/styles/mixins' as *;
+
+:root {
+  --primary-color: #5000ca;
+  --text-color: #fff;
+  --bg-color: #121212;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+textarea { resize: none; }
+
+
+.container {
+  margin: auto;
+  max-width: 1200px;
+  padding: 0 2rem 0;
+
+  @include viewport(medium) {
+    padding: 0 1rem 0;
+  }
+}
+
+html, body, div#root {
+  height: 100%;
+  block-size: 100%;
+}
+

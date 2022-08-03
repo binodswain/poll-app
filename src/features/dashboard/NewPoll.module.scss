@@ -1,0 +1,52 @@
+.header {
+    margin: 2rem 0;
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+}
+
+.form {
+    width: 50%;
+    margin: 1rem 0;
+}
+
+.label {
+    display: block;
+    font-size: 20px;
+}
+
+.input {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 6px;
+    border: 1px solid #242424;
+    background-color: #242424;
+    color: var(--text-color);
+    font-size: 16px;
+}
+
+.submit {
+    padding: 1rem;
+    border-radius: 6px;
+    // border: 1px solid #ccc;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+
+    &:disabled {
+        outline: none;
+        background-color: grey;
+        cursor: not-allowed;
+    }
+}
