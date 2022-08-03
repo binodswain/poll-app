@@ -17,8 +17,8 @@ export default function LeaderboardTable() {
         return null;
     }
     const arr = Object.values(allusers).sort((a, b) => {
-        const aScore = Object.keys(a.answers).length;
-        const bScore = Object.keys(b.answers).length;
+        const aScore = Object.keys(a.answers).length + a.questions.length;
+        const bScore = Object.keys(b.answers).length + a.questions.length;
         return bScore - aScore;
     });
 
@@ -29,14 +29,22 @@ export default function LeaderboardTable() {
                 <table className={styles.table}>
                     <thead>
                         <tr>
+                            <th>Avatar</th>
                             <th>Name</th>
-                            <th>Answers</th>
+                            <th>Answered</th>
                             <th>Questions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {arr.map((user) => (
                             <tr key={user.id}>
+                                <td>
+                                    <img
+                                        src={user.avatarURL}
+                                        alt={user.name}
+                                        className={styles.avatar}
+                                    />
+                                </td>
                                 <td>{user.name}</td>
                                 <td>{Object.keys(user.answers).length}</td>
                                 <td>{user.questions.length}</td>

@@ -6,8 +6,10 @@ export function ProtectedLayout({ children }) {
     const user = useAuth();
     let location = useLocation();
 
+
     if (!user) {
-        return <Navigate to="/login" state={{ from: location }} replace />;
+        let url = `/login?redirect=${location.pathname}`;
+        return <Navigate to={url} state={{ from: location }} replace />;
     }
 
     return (

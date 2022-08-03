@@ -2,7 +2,6 @@ import { _getUsers } from "../../_DATA";
 
 export async function getUser({ username, password }) {
     const userList = await _getUsers();
-    console.log(userList);
     const user = userList[username];
     if (user && user.password === password) {
         return user;

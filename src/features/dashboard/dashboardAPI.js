@@ -6,7 +6,6 @@ export async function getQuestions(userid) {
 }
 
 export async function saveQuestion(payload) {
-    console.log(payload);
     const question = await _saveQuestion(payload);
     return question;
 }

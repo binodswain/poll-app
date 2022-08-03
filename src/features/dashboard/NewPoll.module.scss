@@ -1,3 +1,5 @@
+@use '../../assets/styles/mixins' as *;
+
 .header {
     margin: 2rem 0;
 
@@ -12,6 +14,10 @@
 .form {
     width: 50%;
     margin: 1rem 0;
+
+    @include viewport(small){
+        width: 100%;
+    }
 }
 
 .label {
@@ -49,4 +55,12 @@
         background-color: grey;
         cursor: not-allowed;
     }
+}
+
+.success {
+    background-color: green;
+    font-size: 1rem;
+    // margin-top: 1rem;
+    padding: 10px;
+    border-radius: 6px;
 }

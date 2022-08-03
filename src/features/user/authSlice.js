@@ -2,7 +2,19 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getUser, getUserDetails } from "./authAPI";
 
 const initialState = {
-    loggedInUser: null,
+    loggedInUser: {
+        id: "sarahedo",
+        password: "password123",
+        name: "Sarah Edo",
+        avatarURL: "https://i.pravatar.cc/150?u=sarahedo@pravatar.com",
+        answers: {
+            "8xf0y6ziyjabvozdd253nd": "optionOne",
+            "6ni6ok3ym7mf1p33lnez": "optionOne",
+            am8ehyc8byjqgar0jgpub9: "optionTwo",
+            loxhs1bqm25b708cmbf3g: "optionTwo",
+        },
+        questions: ["8xf0y6ziyjabvozdd253nd", "am8ehyc8byjqgar0jgpub9"],
+    },
     loading: false,
     authError: null,
     pollUserDetails: null,
@@ -41,6 +53,9 @@ export const authSlice = createSlice({
         logout: (state) => {
             state.loggedInUser = false;
         },
+        clearLoginForm: (state) => {
+            state.authError = "";
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -72,7 +87,7 @@ export const authSlice = createSlice({
     },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, clearLoginForm } = authSlice.actions;
 
 export const selectLoginUser = (state) => state.auth.loggedInUser;
 
