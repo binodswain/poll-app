@@ -1,15 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoginForm snapshot testing 1`] = `
+exports[`PollDetails snapshot testing 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      loading...
+      <div>
+        loading...
+        <h3
+          class="helpertext"
+        >
+          Would you rather
+        </h3>
+        <div
+          class="option_wrapper"
+        >
+          <button
+            class="option "
+            data-testid="poll-optionOne"
+          >
+            deploy to production once every two weeks
+          </button>
+          <button
+            class="option "
+            data-testid="poll-optionTwo"
+          >
+            deploy to production once every month
+          </button>
+        </div>
+      </div>
     </div>
   </body>,
   "container": <div>
-    loading...
+    <div>
+      loading...
+      <h3
+        class="helpertext"
+      >
+        Would you rather
+      </h3>
+      <div
+        class="option_wrapper"
+      >
+        <button
+          class="option "
+          data-testid="poll-optionOne"
+        >
+          deploy to production once every two weeks
+        </button>
+        <button
+          class="option "
+          data-testid="poll-optionTwo"
+        >
+          deploy to production once every month
+        </button>
+      </div>
+    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

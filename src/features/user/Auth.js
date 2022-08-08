@@ -43,7 +43,7 @@ export function LoginForm() {
     }, [loggedInUser, navigate, dispatch, searchParams]);
 
     if (!allusers) {
-        return null;
+        return "loading...";
     }
 
     return (
@@ -64,6 +64,7 @@ export function LoginForm() {
                         onChange={(e) => {
                             setUsername(e.target.value);
                         }}
+                        data-testid="user-select-option"
                     >
                         <option value="">Select a user</option>
                         {allusers &&
@@ -81,6 +82,7 @@ export function LoginForm() {
                         type="password"
                         name="password"
                         value={password}
+                        data-testid="password-input"
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </label>
@@ -88,7 +90,7 @@ export function LoginForm() {
                     data-testid="submit-button"
                     className={styles.submit}
                     type="submit"
-                    value={loading ? "Authenticating..." : "Login"}
+                    value={loading ? "Authenticating..." : "Submit"}
                     disabled={loading}
                 />
             </form>

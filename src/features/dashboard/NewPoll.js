@@ -55,6 +55,7 @@ export function NewPoll() {
                             className={styles.input}
                             type="text"
                             name="first_option"
+                            data-testid="first_option"
                             value={optionOne}
                             onChange={(e) => setOptionOne(e.target.value)}
                         />
@@ -65,6 +66,7 @@ export function NewPoll() {
                             className={styles.input}
                             type="text"
                             name="second_option"
+                            data-testid="second_option"
                             value={optionTwo}
                             onChange={(e) => setOptionTwo(e.target.value)}
                         />
@@ -72,6 +74,7 @@ export function NewPoll() {
                     <button
                         disabled={!(optionOne && optionTwo) || newPoll.loading}
                         className={styles.submit}
+                        data-testid="poll-submit-button"
                     >
                         Submit
                     </button>

@@ -42,7 +42,6 @@ export function PollDetails() {
     const { alreadyAnswered, op1, op2, op1Percent, op2Percent } =
         getAlreadyAnswered(question, loggedInUser);
 
-
     const handleClick = (option) => {
         dispatch(
             saveQuestionAnswerAsync({
@@ -63,6 +62,7 @@ export function PollDetails() {
                     }
                     onClick={() => handleClick("optionOne")}
                     disabled={alreadyAnswered}
+                    data-testid="poll-optionOne"
                 >
                     {optionOne.text}
                     {alreadyAnswered && (
@@ -75,6 +75,7 @@ export function PollDetails() {
                     }
                     onClick={() => handleClick("optionTwo")}
                     disabled={alreadyAnswered}
+                    data-testid="poll-optionTwo"
                 >
                     {optionTwo.text}
                     {alreadyAnswered && (
@@ -94,7 +95,7 @@ function UserDetails({ author, timestamp }) {
         if (!allusers) {
             dispatch(getUsersAsync());
         }
-    }, [allusers]);
+    }, [allusers, dispatch]);
 
     if (!allusers) {
         return "loading...";
